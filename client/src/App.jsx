@@ -4,22 +4,40 @@ import './App.css'
 import ShiftsTable from './components/ShiftsTable.jsx';
 
 function App() {
-  const [rows, setRows] = useState(null);
+  const [shifts, setShifts] = useState(null);
   const shiftsUrl = 'http://localhost:9001/shifts/';
+  const nursesUrl = 'http://localhost:9001/nurse/'
 
   useEffect(() => {
-    fetch(shiftsUrl,{
-      method: 'GET',
+    Promise.all([
+      fetch(shiftsUrl),
+      fetch(nursesUrl)
+    ])
+    .then(([res1, res2]) => {
+      Promise.all([
+        res1.json(),
+        res2.json()
+      ])
+      .then(([shiftsResponse, nursesResponse]) => {
+        let rows = []
+        for (let i = 0; i < shiftsResponse.length; i++) {
+          const element = shiftsResponse[i];
+          element.nurse = nursesResponse.find((nurse) => {
+            return nurse.id === element.nurseId
+          })
+          rows.push(element);
+          setShifts(rows);
+        }
+      });
     })
-    .then((response) => {
-      return response.json();
-    })
-    .then((actualData) => console.log(actualData))
+    .catch(error => {
+      console.log(error);
+    });
   }, []);
 
   return (
     <div className="App">
-      <ShiftsTable />
+      <ShiftsTable rows={shifts} />
     </div>
   )
 }

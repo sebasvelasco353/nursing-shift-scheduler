@@ -6,8 +6,10 @@ To run the server first ```cd server``` folder and run ```node server.js```, thi
 
 ###GET /shifts
 Returns a JSON object with an array of shifts, each shift has an id, a start and end UTC datetime, a nurse ID (or null), and a qualification level (either CNA, LPN, or RN).
+
 ###GET /nurse
 Returns a JSON object with an array of nurses, each nurse has an id, a first and last name, a username, and a qualification level.
+
 ### PUT /shifts/${shift_id}
 A save routine that, given a shift ID in the route, and a nurse ID in the body, simulates saving the nurse to the given shift (this could either be a dumb auto-succeed passthrough or run some server-side validation that the nurse is qualified and capable of working that shift)
 
