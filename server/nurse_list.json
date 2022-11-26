@@ -1,0 +1,37 @@
+[{
+    "id": 0,
+    "firstName": "a",
+    "lastName": "a",
+    "username": "a.a",
+    "qualificationLevel": "CNA"
+},{
+    "id": 1,
+    "firstName": "a",
+    "lastName": "a",
+    "username": "a.a",
+    "qualificationLevel": "LPN"
+},{
+    "id": 2,
+    "firstName": "a",
+    "lastName": "a",
+    "username": "a.a",
+    "qualificationLevel": "RN"
+},{
+    "id": 3,
+    "firstName": "a",
+    "lastName": "a",
+    "username": "a.a",
+    "qualificationLevel": "RN"
+},{
+    "id": 4,
+    "firstName": "a",
+    "lastName": "a",
+    "username": "a.a",
+    "qualificationLevel": "CNA"
+},{
+    "id": 5,
+    "firstName": "a",
+    "lastName": "a",
+    "username": "a.a",
+    "qualificationLevel": "LPN"
+}]
