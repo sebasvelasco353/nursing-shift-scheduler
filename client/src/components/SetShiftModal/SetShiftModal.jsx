@@ -44,12 +44,32 @@ function SetShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShift
     return selectedShift === '' || error !== '';
   }
   const validateForm = () => {
+    const newError = [...error];
     const certifications = {
       CNA: ['CNA'],
       LPN: ['CNA', 'LPN'],
       RN: ['CNA', 'LPN', 'RN']
     };
-    if (!certifications[newNurse.qualificationLevel].includes(newShift.qualificationLevel)) setError('The selected nurse dosent meet the minimum qualification level.');
+
+    if (!certifications[newNurse.qualificationLevel].includes(newShift.qualificationLevel)) {
+      newError.push('qualification');
+      setError(newError)
+    };
+
+    var selectedNurseActualShift = Object.keys(shifts).filter(shift => shifts[shift].nurseId === newNurse.id).map(shift => shifts[shift]);
+
+    var newShiftStart = new Date(newShift.startTime).getTime();
+    var newShiftEnd = new Date(newShift.endTime).getTime();
+
+    for (let i = 0; i < selectedNurseActualShift.length; i++) {
+      const nurseShift = selectedNurseActualShift[i];
+      var newNurseStart = new Date(nurseShift.startTime).getTime();
+      var newNurseEnd = new Date(nurseShift.endTime).getTime();
+      if ((Math.min(newShiftStart, newShiftEnd) <= Math.max(newNurseStart, newNurseEnd)) && (Math.max(newShiftStart, newShiftEnd) >= Math.min(newNurseStart, newNurseEnd))) {
+        newError.push('overlaps');
+        setError(newError)
+      }
+    }
   }
 
   return (
@@ -99,7 +119,8 @@ function SetShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShift
             }
           </Select>
         </FormControl>
-        { error !== '' && <Alert severity="warning">{error}</Alert> }
+        { error.includes('qualification') && <Alert severity="warning">The selected nurse does'nt meet the minimum qualification level.</Alert> }
+        { error.includes('overlaps') && <Alert severity="warning">The selected nurse is already working a shift that overlaps the time for the selected shift.</Alert> }
         <Button
           variant="contained"
           id='saveAssignmentBtn'

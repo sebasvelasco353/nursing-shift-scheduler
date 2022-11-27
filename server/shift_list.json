@@ -37,8 +37,8 @@
   },{
     "id": 5,
     "name": "MedSurg6",
-    "startTime": "2022-12-01T00:00:00Z",
-    "endTime": "2022-12-02T00:00:00Z",
+    "startTime": "2022-12-02T00:00:00Z",
+    "endTime": "2022-12-02T20:00:00Z",
     "nurseId": null,
     "qualificationLevel": "CNA"
   },{
