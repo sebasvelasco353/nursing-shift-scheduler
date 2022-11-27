@@ -6,12 +6,8 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-
-import './ShiftsTable.css';
 
 export default function ShiftsTable({ rows }) {
-  console.log(rows);
   return (
     <TableContainer sx={{ minWidth: 650, minHeight: 150, backgroundColor: 'white'}}>
       {rows === null ? 
@@ -21,11 +17,11 @@ export default function ShiftsTable({ rows }) {
         <Table sx={{ minWidth: 600 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell className='tableHeadCell' align="left">Shift</TableCell>
-              <TableCell className='tableHeadCell' align="left">Start Time</TableCell>
-              <TableCell className='tableHeadCell' align="left">End Time</TableCell>
-              <TableCell className='tableHeadCell' align="left"> Certification Required</TableCell>
-              <TableCell className='tableHeadCell' align="left">Assigned Nurse</TableCell>
+              <TableCell sx={{ fontWeight: 700 }} align="left">Shift</TableCell>
+              <TableCell sx={{ fontWeight: 700 }} align="left">Start Time</TableCell>
+              <TableCell sx={{ fontWeight: 700 }} align="left">End Time</TableCell>
+              <TableCell sx={{ fontWeight: 700 }} align="left"> Certification Required</TableCell>
+              <TableCell sx={{ fontWeight: 700 }} align="left">Assigned Nurse</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

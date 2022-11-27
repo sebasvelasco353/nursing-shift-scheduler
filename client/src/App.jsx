@@ -1,25 +1,14 @@
-import { useState, useEffect } from 'react'
-import './App.css'
+import { useState, useEffect } from 'react';
 
 import ShiftsTable from './components/ShiftsTable/ShiftsTable.jsx';
+import SetShiftModal from './components/SetShiftModal/SetShiftModal.jsx';
 import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+import './App.css'
 
 function App() {
   const [shifts, setShifts] = useState(null);
+  const [nurses, setNurses] = useState(null);
   const [open, setOpen] = useState(false);
 
   const shiftsUrl = 'http://localhost:9001/shifts/';
@@ -27,6 +16,9 @@ function App() {
 
   const handleOpenModal = () => setOpen(true); 
   const handleCloseModal = () => setOpen(false);
+  const handleSetShiftAssignment = () => {
+    console.log('handle set shift assignment');
+  };
 
   useEffect(() => {
     Promise.all([
@@ -39,6 +31,8 @@ function App() {
         res2.json()
       ])
       .then(([shiftsResponse, nursesResponse]) => {
+        setNurses(nursesResponse);
+
         let rows = []
         for (let i = 0; i < shiftsResponse.length; i++) {
           const element = shiftsResponse[i];
@@ -64,18 +58,13 @@ function App() {
       >
         Set Shift Assignment
       </Button>
-
-      <Modal
+      <SetShiftModal
         open={open}
-        onClose={handleCloseModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <p>holis</p>
-        </Box>
-      </Modal>
-
+        shifts={shifts}
+        nurses={nurses}
+        handleCloseModal={handleCloseModal}
+        handleSetShiftAssignment={handleSetShiftAssignment}
+      />
       <ShiftsTable rows={shifts} />
     </div>
   )
