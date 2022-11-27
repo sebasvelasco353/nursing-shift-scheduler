@@ -10,10 +10,10 @@ import TableRow from '@mui/material/TableRow';
 export default function ShiftsTable({ rows }) {
   return (
     <TableContainer sx={{ minWidth: 650, minHeight: 150, backgroundColor: 'white'}}>
-      {rows === null ? 
+      {rows === null ?
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <CircularProgress />
-        </Box> : 
+        </Box> :
         <Table sx={{ minWidth: 600 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -31,12 +31,12 @@ export default function ShiftsTable({ rows }) {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name} 
+                  {row.name}
                 </TableCell>
                 <TableCell align="left">{new Date(row.startTime).toUTCString()}</TableCell>
                 <TableCell align="left">{new Date(row.endTime).toUTCString()}</TableCell>
                 <TableCell align="left">{row.qualificationLevel}</TableCell>
-                <TableCell align="left">{row.nurseId ? `${row.nurse.lastName} ${row.nurse.firstName}, ${row.nurse.qualificationLevel}` : ''}</TableCell>
+                <TableCell align="left">{row.nurseId ? `${row.nurse.firstName} ${row.nurse.lastName}, ${row.nurse.qualificationLevel}` : ''}</TableCell>
               </TableRow>
             ))}
           </TableBody>

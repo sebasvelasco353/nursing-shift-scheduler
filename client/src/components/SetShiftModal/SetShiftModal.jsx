@@ -12,6 +12,7 @@ const modalStyle = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
+  width: 450,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -19,9 +20,19 @@ const modalStyle = {
 };
 
 function SetShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShiftAssignment }) {
-  
-  const [selectedShift, setSelectedShift] = useState(null);
-  const [selectedNurse, setSelectedNurse] = useState(null);
+
+  const [selectedShift, setSelectedShift] = useState('none');
+  const [selectedNurse, setSelectedNurse] = useState('none');
+
+  const handleSelectShift = (e) => {
+    setSelectedShift(e.target.value);
+  }
+  const handleSelectNurse = (e) => {
+    setSelectedNurse(e.target.value);
+  }
+  const isSaveButtonDisabled = () => {
+    return selectedShift === 'none';
+  }
 
   return (
    <Modal
@@ -34,36 +45,38 @@ function SetShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShift
         <h1>Set Shift Assignment</h1>
 
         <FormControl fullWidth>
-          <label htmlFor="demo-simple-select-1">Shift</label>
+          <label htmlFor="shift-selector">Shift</label>
           <Select
-            labelId="demo-simple-select-label-1"
-            id="demo-simple-select-1"
-            value={''}
-            label="Age"
-            onChange={handleSetShiftAssignment}
+            id="shift-selector"
+            value={selectedShift}
+            label="Shift"
+            onChange={handleSelectShift}
           >
-            <MenuItem value={''}>none</MenuItem>
+            <MenuItem value={'none'}><b>none</b></MenuItem>
             {
               shifts && shifts.map((shift) => (
-                <MenuItem key={shift.id} value={shift.id}>{shift.name}</MenuItem>
+                <MenuItem key={shift.id} value={shift.id}>
+                  <b>{shift.name}</b>,<b>{shift.qualificationLevel}</b>, {new Date(shift.startTime).toUTCString()}
+                </MenuItem>
               ))
             }
           </Select>
         </FormControl>
 
         <FormControl fullWidth>
-          <label htmlFor="demo-simple-select-1">Nurses</label>
+          <label htmlFor="nurse-selector">Nurses</label>
           <Select
-            labelId="demo-simple-select-label-1"
-            id="demo-simple-select-1"
-            value={''}
-            label="Age"
-            onChange={handleSetShiftAssignment}
+            id="nurse-selector"
+            value={selectedNurse}
+            label="Nurse"
+            onChange={handleSelectNurse}
           >
-            <MenuItem key={999} value={''}>None</MenuItem>
+            <MenuItem key={'no nurse'} value={'none'}><b>None</b></MenuItem>
             {
               nurses && nurses.map((nurse) => (
-                <MenuItem key={nurse.id} value={nurse.id}>{nurse.firstName}</MenuItem>
+                <MenuItem key={nurse.id} value={nurse.id}>
+                  <b>{nurse.firstName} {nurse.lastName}</b>, {nurse.qualificationLevel}
+                </MenuItem>
               ))
             }
           </Select>
@@ -71,7 +84,8 @@ function SetShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShift
         <Button
           variant="contained"
           id='saveAssignmentBtn'
-          onClick={handleSetShiftAssignment}
+          disabled={isSaveButtonDisabled()}
+          onClick={() => handleSetShiftAssignment(selectedShift, selectedNurse)}
         >
           Save Assignment
         </Button>

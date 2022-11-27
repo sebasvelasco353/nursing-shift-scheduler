@@ -12,12 +12,24 @@ function App() {
   const [open, setOpen] = useState(false);
 
   const shiftsUrl = 'http://localhost:9001/shifts/';
-  const nursesUrl = 'http://localhost:9001/nurse/'
+  const nursesUrl = 'http://localhost:9001/nurse/';
 
-  const handleOpenModal = () => setOpen(true); 
+  const handleOpenModal = () => setOpen(true);
   const handleCloseModal = () => setOpen(false);
-  const handleSetShiftAssignment = () => {
-    console.log('handle set shift assignment');
+
+  const handleSetShiftAssignment = (shift, nurse) => {
+    console.log(`${shiftsUrl}${shift} and ${nurse}`);
+    fetch(`${shiftsUrl}${shift}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: {
+        "nurse_id": nurse
+      }
+    }).then((res) => {
+      console.log(res);
+    });
     handleCloseModal();
   };
 
