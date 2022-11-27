@@ -3,15 +3,30 @@ import './App.css'
 
 import ShiftsTable from './components/ShiftsTable/ShiftsTable.jsx';
 import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 function App() {
   const [shifts, setShifts] = useState(null);
+  const [open, setOpen] = useState(false);
+
   const shiftsUrl = 'http://localhost:9001/shifts/';
   const nursesUrl = 'http://localhost:9001/nurse/'
 
-  function handleSetShiftAssignment() {
-    console.log('holi');
-  }
+  const handleOpenModal = () => setOpen(true); 
+  const handleCloseModal = () => setOpen(false);
 
   useEffect(() => {
     Promise.all([
@@ -45,25 +60,22 @@ function App() {
       <Button
         variant="contained"
         id='setShiftButton'
-        onClick={handleSetShiftAssignment}
+        onClick={handleOpenModal}
       >
         Set Shift Assignment
       </Button>
+
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={handleCloseModal}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <p>holis</p>
         </Box>
       </Modal>
+
       <ShiftsTable rows={shifts} />
     </div>
   )
