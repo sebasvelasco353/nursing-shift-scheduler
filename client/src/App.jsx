@@ -18,7 +18,6 @@ function App() {
   const handleCloseModal = () => setOpen(false);
 
   const handleSetShiftAssignment = (shift, nurse) => {
-    console.log(`${shiftsUrl}${shift} and ${nurse}`);
     fetch(`${shiftsUrl}${shift}`, {
       method: 'PUT',
       headers: {

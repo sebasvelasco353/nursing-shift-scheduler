@@ -5,7 +5,7 @@
     "startTime": "2022-11-26T00:00:00Z",
     "endTime": "2022-11-27T00:00:00Z",
     "nurseId": null,
-    "qualificationLevel": "CNA"
+    "qualificationLevel": "LPN"
   },{
     "id": 1,
     "name": "MedSurg2",
@@ -19,14 +19,14 @@
     "startTime": "2022-11-28T00:00:00Z",
     "endTime": "2022-11-29T00:00:00Z",
     "nurseId": null,
-    "qualificationLevel": "CNA"
+    "qualificationLevel": "LPN"
   },{
     "id": 3,
     "name": "MedSurg4",
     "startTime": "2022-11-29T00:00:00Z",
     "endTime": "2022-11-30T00:00:00Z",
     "nurseId": null,
-    "qualificationLevel": "CNA"
+    "qualificationLevel": "RN"
   },{
     "id": 4,
     "name": "MedSurg5",
@@ -47,6 +47,6 @@
     "startTime": "2022-12-02T00:00:00Z",
     "endTime": "2022-12-03T00:00:00Z",
     "nurseId": 1,
-    "qualificationLevel": "CNA"
+    "qualificationLevel": "RN"
   }
 ]

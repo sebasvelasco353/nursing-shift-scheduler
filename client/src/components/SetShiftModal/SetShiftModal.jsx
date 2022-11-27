@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Alert from '@mui/material/Alert';
 
 const modalStyle = {
   position: 'absolute',
@@ -19,19 +20,36 @@ const modalStyle = {
   p: 4,
 };
 
+let newShift, newNurse;
+
 function SetShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShiftAssignment }) {
 
-  const [selectedShift, setSelectedShift] = useState('none');
-  const [selectedNurse, setSelectedNurse] = useState('none');
+  const [selectedShift, setSelectedShift] = useState('');
+  const [selectedNurse, setSelectedNurse] = useState('');
+  const [error, setError] = useState('');
 
   const handleSelectShift = (e) => {
-    setSelectedShift(e.target.value);
+    newShift = e.target.value;
+    setSelectedShift(newShift);
+    setError('');
+    if((newShift !== undefined) && (newNurse !== undefined)) validateForm();
   }
   const handleSelectNurse = (e) => {
-    setSelectedNurse(e.target.value);
+    newNurse = e.target.value;
+    setSelectedNurse(newNurse);
+    setError('');
+    if((newShift !== undefined) && (newNurse !== undefined)) validateForm();
   }
   const isSaveButtonDisabled = () => {
-    return selectedShift === 'none';
+    return selectedShift === '' || error !== '';
+  }
+  const validateForm = () => {
+    const certifications = {
+      CNA: ['CNA'],
+      LPN: ['CNA', 'LPN'],
+      RN: ['CNA', 'LPN', 'RN']
+    };
+    if (!certifications[newNurse.qualificationLevel].includes(newShift.qualificationLevel)) setError('The selected nurse dosent meet the minimum qualification level.');
   }
 
   return (
@@ -52,10 +70,10 @@ function SetShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShift
             label="Shift"
             onChange={handleSelectShift}
           >
-            <MenuItem value={'none'}><b>none</b></MenuItem>
+            <MenuItem key={'no shift'} value={''}><b>none</b></MenuItem>
             {
               shifts && shifts.map((shift) => (
-                <MenuItem key={shift.id} value={shift.id}>
+                <MenuItem key={shift.id} value={shift}>
                   <b>{shift.name}</b>,<b>{shift.qualificationLevel}</b>, {new Date(shift.startTime).toUTCString()}
                 </MenuItem>
               ))
@@ -71,16 +89,17 @@ function SetShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShift
             label="Nurse"
             onChange={handleSelectNurse}
           >
-            <MenuItem key={'no nurse'} value={'none'}><b>None</b></MenuItem>
+            <MenuItem key={'no nurse'} value={''}><b>None</b></MenuItem>
             {
               nurses && nurses.map((nurse) => (
-                <MenuItem key={nurse.id} value={nurse.id}>
+                <MenuItem key={nurse.id} value={nurse}>
                   <b>{nurse.firstName} {nurse.lastName}</b>, {nurse.qualificationLevel}
                 </MenuItem>
               ))
             }
           </Select>
         </FormControl>
+        { error !== '' && <Alert severity="warning">{error}</Alert> }
         <Button
           variant="contained"
           id='saveAssignmentBtn'
