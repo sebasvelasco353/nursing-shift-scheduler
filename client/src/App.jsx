@@ -18,6 +18,7 @@ function App() {
   const handleCloseModal = () => setOpen(false);
   const handleSetShiftAssignment = () => {
     console.log('handle set shift assignment');
+    handleCloseModal();
   };
 
   useEffect(() => {

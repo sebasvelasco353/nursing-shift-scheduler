@@ -38,14 +38,15 @@ function SetShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShift
           <Select
             labelId="demo-simple-select-label-1"
             id="demo-simple-select-1"
-            value={1}
+            value={''}
             label="Age"
             onChange={handleSetShiftAssignment}
           >
+            <MenuItem value={''}>none</MenuItem>
             {
-              shifts ? shifts.map((shift) => (
+              shifts && shifts.map((shift) => (
                 <MenuItem key={shift.id} value={shift.id}>{shift.name}</MenuItem>
-              )) : <MenuItem value={null}>none</MenuItem>
+              ))
             }
           </Select>
         </FormControl>
@@ -55,14 +56,15 @@ function SetShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShift
           <Select
             labelId="demo-simple-select-label-1"
             id="demo-simple-select-1"
-            value={1}
+            value={''}
             label="Age"
             onChange={handleSetShiftAssignment}
           >
+            <MenuItem key={999} value={''}>None</MenuItem>
             {
-              nurses ? nurses.map((nurse) => (
+              nurses && nurses.map((nurse) => (
                 <MenuItem key={nurse.id} value={nurse.id}>{nurse.firstName}</MenuItem>
-              )) : <MenuItem value={null}>none</MenuItem>
+              ))
             }
           </Select>
         </FormControl>
