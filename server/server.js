@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const fs = require('fs');
 
 const app = express();
 const PORT = 9001;
@@ -18,10 +19,15 @@ app.get('/shifts', (req, res) => {
   res.status(200).send(shift_list);
 });
 app.put('/shifts/:shift_id', (req, res) => {
-  // TODO: modify the shifts_list file
-  console.log(req.params);
-  console.log(req.body);
-  res.status(200).send(req.params)
+  const index = shift_list.findIndex(shift => {
+    return parseInt(shift.id) === parseInt(req.params.shift_id);
+  });
+  shift_list[index].nurseId = req.body.nurse_id;
+  fs.writeFile('./shift_list.json', JSON.stringfy(shift_list), function (err) {
+    if (err) throw err;
+    console.log('Replaced!');
+  });
+  res.status(200).send('index');
 });
 
 // Start the server.
