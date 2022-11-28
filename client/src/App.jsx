@@ -54,7 +54,6 @@ function App() {
       },
       body: JSON.stringify({ "nurse_id": nurse })
     }).then((res) => {
-      console.log(res);
       fetchInfo();
     });
     handleCloseModal();

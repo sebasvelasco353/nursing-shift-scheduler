@@ -25,9 +25,8 @@ app.put('/shifts/:shift_id', (req, res) => {
 
   fs.writeFile('./shift_list.json', JSON.stringify(shift_list), function (err) {
     if (err) throw err;
-    console.log('Replaced!');
+    res.status(200).send('the changes have been saved');
   });
-  res.status(200).send('index');
 });
 
 // Start the server.
