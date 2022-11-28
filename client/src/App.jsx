@@ -18,14 +18,14 @@ function App() {
   const handleCloseModal = () => setOpen(false);
 
   const handleSetShiftAssignment = (shift, nurse) => {
-    fetch(`${shiftsUrl}${shift}`, {
+    console.log(shift.id);
+    console.log(nurse.id);
+    fetch(`${shiftsUrl}${shift.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: {
-        "nurse_id": nurse
-      }
+      body: JSON.stringify({ "nurse_id": 1 })
     }).then((res) => {
       console.log(res);
     });
