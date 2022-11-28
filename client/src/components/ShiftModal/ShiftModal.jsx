@@ -49,8 +49,7 @@ function ShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShiftAss
     return selectedShift === '' || error !== '';
   }
   const validateForm = () => {
-    const newError = [...error];
-    console.log(newError);
+    const newError = [];
     const certifications = {
       CNA: ['CNA'],
       LPN: ['CNA', 'LPN'],
