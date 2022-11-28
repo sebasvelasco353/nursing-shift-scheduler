@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import ShiftsTable from './components/ShiftsTable/ShiftsTable.jsx';
-import SetShiftModal from './components/SetShiftModal/SetShiftModal.jsx';
+import ShiftModal from './components/ShiftModal/ShiftModal.jsx';
 import Button from '@mui/material/Button';
 
 import './App.css'
@@ -17,20 +17,7 @@ function App() {
   const handleOpenModal = () => setOpen(true);
   const handleCloseModal = () => setOpen(false);
 
-  const handleSetShiftAssignment = (shift, nurse) => {
-    fetch(`${shiftsUrl}${shift.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ "nurse_id": nurse.id })
-    }).then((res) => {
-      console.log(res);
-    });
-    handleCloseModal();
-  };
-
-  useEffect(() => {
+  const fetchInfo = () => {
     Promise.all([
       fetch(shiftsUrl),
       fetch(nursesUrl)
@@ -57,6 +44,24 @@ function App() {
     .catch(error => {
       console.log(error);
     });
+  }
+
+  const handleSetShiftAssignment = (shift, nurse) => {
+    fetch(`${shiftsUrl}${shift}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ "nurse_id": nurse })
+    }).then((res) => {
+      console.log(res);
+      fetchInfo();
+    });
+    handleCloseModal();
+  };
+
+  useEffect(() => {
+    fetchInfo();
   }, []);
 
   return (
@@ -68,7 +73,7 @@ function App() {
       >
         Set Shift Assignment
       </Button>
-      <SetShiftModal
+      <ShiftModal
         open={open}
         shifts={shifts}
         nurses={nurses}

@@ -8,7 +8,6 @@ const PORT = 9001;
 const nurse_list = require('./nurse_list.json');
 const shift_list = require('./shift_list.json');
 
-
 app.use(cors());
 app.use(express.json());
 
@@ -23,7 +22,8 @@ app.put('/shifts/:shift_id', (req, res) => {
     return parseInt(shift.id) === parseInt(req.params.shift_id);
   });
   shift_list[index].nurseId = req.body.nurse_id;
-  fs.writeFile('./shift_list.json', JSON.stringfy(shift_list), function (err) {
+
+  fs.writeFile('./shift_list.json', JSON.stringify(shift_list), function (err) {
     if (err) throw err;
     console.log('Replaced!');
   });

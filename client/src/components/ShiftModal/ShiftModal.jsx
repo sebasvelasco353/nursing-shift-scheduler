@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -20,31 +20,37 @@ const modalStyle = {
   p: 4,
 };
 
-let newShift, newNurse;
+let newShiftId, newNurseId, newNurse, newShift;
 
-function SetShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShiftAssignment }) {
-
+function ShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShiftAssignment }) {
   const [selectedShift, setSelectedShift] = useState('');
   const [selectedNurse, setSelectedNurse] = useState('');
   const [error, setError] = useState('');
 
   const handleSelectShift = (e) => {
-    newShift = e.target.value;
-    setSelectedShift(newShift);
+    newShiftId = e.target.value;
+    newShift = shifts.find(shift => {
+      return parseInt(shift.id) === parseInt(newShiftId);
+    });
+    setSelectedShift(newShiftId);
     setError('');
-    if((newShift !== undefined) && (newNurse !== undefined)) validateForm();
+    if((newShiftId !== undefined) && (newNurseId !== undefined)) validateForm();
   }
   const handleSelectNurse = (e) => {
-    newNurse = e.target.value;
-    setSelectedNurse(newNurse);
+    newNurseId = e.target.value;
+    newNurse = nurses.find(shift => {
+      return parseInt(shift.id) === parseInt(newNurseId);
+    });
+    setSelectedNurse(newNurseId);
     setError('');
-    if((newShift !== undefined) && (newNurse !== undefined)) validateForm();
+    if((newShiftId !== undefined) && (newNurseId !== undefined)) validateForm();
   }
   const isSaveButtonDisabled = () => {
     return selectedShift === '' || error !== '';
   }
   const validateForm = () => {
     const newError = [...error];
+    console.log(newError);
     const certifications = {
       CNA: ['CNA'],
       LPN: ['CNA', 'LPN'],
@@ -56,8 +62,7 @@ function SetShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShift
       setError(newError)
     };
 
-    var selectedNurseActualShift = Object.keys(shifts).filter(shift => shifts[shift].nurseId === newNurse.id).map(shift => shifts[shift]);
-
+    var selectedNurseActualShift = Object.keys(shifts).filter(shift => shifts[shift].nurseId === newNurseId).map(shift => shifts[shift]);
     var newShiftStart = new Date(newShift.startTime).getTime();
     var newShiftEnd = new Date(newShift.endTime).getTime();
 
@@ -65,7 +70,8 @@ function SetShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShift
       const nurseShift = selectedNurseActualShift[i];
       var newNurseStart = new Date(nurseShift.startTime).getTime();
       var newNurseEnd = new Date(nurseShift.endTime).getTime();
-      if ((Math.min(newShiftStart, newShiftEnd) <= Math.max(newNurseStart, newNurseEnd)) && (Math.max(newShiftStart, newShiftEnd) >= Math.min(newNurseStart, newNurseEnd))) {
+
+      if (((newShiftStart >= newNurseStart) && (newShiftStart <= newNurseEnd)) || ((newNurseStart >= newShiftStart) && (newNurseStart <= newShiftEnd))) {
         newError.push('overlaps');
         setError(newError)
       }
@@ -87,13 +93,14 @@ function SetShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShift
           <Select
             id="shift-selector"
             value={selectedShift}
+            defaultValue = ""
             label="Shift"
             onChange={handleSelectShift}
           >
             <MenuItem key={'no shift'} value={''}><b>none</b></MenuItem>
             {
               shifts && shifts.map((shift) => (
-                <MenuItem key={shift.id} value={shift}>
+                <MenuItem key={shift.id} value={shift.id}>
                   <b>{shift.name}</b>,<b>{shift.qualificationLevel}</b>, {new Date(shift.startTime).toUTCString()}
                 </MenuItem>
               ))
@@ -106,13 +113,14 @@ function SetShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShift
           <Select
             id="nurse-selector"
             value={selectedNurse}
+            defaultValue = ""
             label="Nurse"
             onChange={handleSelectNurse}
           >
             <MenuItem key={'no nurse'} value={''}><b>None</b></MenuItem>
             {
               nurses && nurses.map((nurse) => (
-                <MenuItem key={nurse.id} value={nurse}>
+                <MenuItem key={nurse.id} value={nurse.id}>
                   <b>{nurse.firstName} {nurse.lastName}</b>, {nurse.qualificationLevel}
                 </MenuItem>
               ))
@@ -134,4 +142,4 @@ function SetShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShift
   )
 }
 
-export default SetShiftModal
+export default ShiftModal;
