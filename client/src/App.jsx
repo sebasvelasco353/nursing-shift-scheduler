@@ -65,13 +65,17 @@ function App() {
 
   return (
     <div className="App">
-      <Button
-        variant="contained"
-        id='setShiftButton'
-        onClick={handleOpenModal}
-      >
-        Set Shift Assignment
-      </Button>
+      <header data-testid="app-header">
+        <h1>Nurse Shift Scheduler</h1>
+        <Button
+          variant="contained"
+          id='setShiftButton'
+          data-testid="setShiftButton"
+          onClick={handleOpenModal}
+        >
+          Set Shift Assignment
+        </Button>
+      </header>
       <ShiftModal
         open={open}
         shifts={shifts}
@@ -79,7 +83,9 @@ function App() {
         handleCloseModal={handleCloseModal}
         handleSetShiftAssignment={handleSetShiftAssignment}
       />
-      <ShiftsTable rows={shifts} />
+      <div className="tableContainer" data-testid="tableContainer">
+        <ShiftsTable rows={shifts} />
+      </div>
     </div>
   )
 }

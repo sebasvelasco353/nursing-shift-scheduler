@@ -14,4 +14,4 @@ Returns a JSON object with an array of nurses, each nurse has an id, a first and
 A save routine that, given a shift ID in the route, and a nurse ID in the body, simulates saving the nurse to the given shift (this could either be a dumb auto-succeed passthrough or run some server-side validation that the nurse is qualified and capable of working that shift)
 
 ## Client
-The client is a React application created using vite, visual components are imported from [MUI](https://mui.com/material-ui/).
+The client is a React application created using create-react-app, visual components are imported from [MUI](https://mui.com/material-ui/), to run the app first ```cd client```, and then use ```npm run start``` and this will run the app on port 3000.

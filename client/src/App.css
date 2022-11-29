@@ -1,26 +1,19 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
 .App {
+  padding: 3rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
 }
-
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
 #setShiftButton {
-  margin-bottom: 1rem;
+  width: 200px;
+  font-size: 0.8rem;
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.tableContainer {
+  border: 1px solid gray;
 }
 

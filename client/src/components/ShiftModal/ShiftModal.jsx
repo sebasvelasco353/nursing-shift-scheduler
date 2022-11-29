@@ -8,6 +8,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
 
+import './ShiftModal.css'
+
 const modalStyle = {
   position: 'absolute',
   top: '50%',
@@ -79,6 +81,7 @@ function ShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShiftAss
 
   return (
    <Modal
+      id="setShiftModal"
       open={open}
       onClose={handleCloseModal}
       aria-labelledby="modal-modal-title"
