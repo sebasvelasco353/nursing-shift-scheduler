@@ -9,6 +9,7 @@ import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
 
 import './ShiftModal.css'
+import { logDOM } from '@testing-library/react';
 
 const modalStyle = {
   position: 'absolute',
@@ -52,6 +53,7 @@ function ShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShiftAss
   }
   const validateForm = () => {
     const newError = [];
+    console.log(newError);
     const certifications = {
       CNA: ['CNA'],
       LPN: ['CNA', 'LPN'],
@@ -63,7 +65,12 @@ function ShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShiftAss
       setError(newError)
     };
 
-    var selectedNurseActualShift = Object.keys(shifts).filter(shift => shifts[shift].nurseId === newNurseId).map(shift => shifts[shift]);
+    var selectedNurseActualShift = [];
+    shifts.forEach(shift => {
+      const hasSelectedNurse = shift.nurses.filter(nurse => nurse.id === newNurseId).length > 0
+      if (hasSelectedNurse) selectedNurseActualShift.push(shift);
+    });
+
     var newShiftStart = new Date(newShift.startTime).getTime();
     var newShiftEnd = new Date(newShift.endTime).getTime();
 
