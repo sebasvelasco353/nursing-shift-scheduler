@@ -12,9 +12,13 @@ export default function ShiftsTable({ rows }) {
     <TableContainer sx={{ minWidth: 650, minHeight: 150, backgroundColor: 'white'}}>
       {rows === null ?
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <CircularProgress />
+          <CircularProgress data-testid="loading"/>
         </Box> :
-        <Table sx={{ minWidth: 600 }} aria-label="simple table">
+        <Table
+          sx={{ minWidth: 600 }}
+          aria-label="shifts table"
+          data-testid="shiftsTable"
+        >
           <TableHead>
             <TableRow>
               <TableCell sx={{ fontWeight: 700 }} align="left">Shift</TableCell>

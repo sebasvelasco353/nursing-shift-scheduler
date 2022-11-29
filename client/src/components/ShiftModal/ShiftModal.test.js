@@ -18,3 +18,9 @@ it('Should have a header with the text "Set Shift Assignment"', () => {
     const h1 = screen.getByText("Set Shift Assignment");
     expect(h1).toBeInTheDocument();
 });
+
+it('should have a button with the text "Save Assignment"', () => {
+    render(<ShiftModal open={true} />);
+    const button = screen.getByText("Save Assignment");
+    expect(button).toBeTruthy();
+});

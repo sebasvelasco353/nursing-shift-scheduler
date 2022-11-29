@@ -85,8 +85,8 @@ function ShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShiftAss
       open={open}
       onClose={handleCloseModal}
       data-testid="shiftModalComponent"
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+      aria-labelledby="set shift assignment modal"
+      aria-describedby="modal used to set nurse's shifts"
     >
       <Box
         sx={modalStyle}
