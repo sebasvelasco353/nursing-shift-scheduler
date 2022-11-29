@@ -10,9 +10,19 @@ import TableRow from '@mui/material/TableRow';
 export default function ShiftsTable({ rows }) {
   const dateFormatOptions = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit' };
 
+  function getRandomKey() {
+    var result = 'a';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < 5; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
   const renderNursesInfo = (nurses) => {
-    let text = nurses.map(nurse => {
-        return <p key={nurse.id}>{nurse.firstName} {nurse.lastName}, {nurse.qualificationLevel}</p>;
+    let text = nurses.map((nurse) => {
+        return <p key={getRandomKey()}>{nurse.firstName} {nurse.lastName}, {nurse.qualificationLevel}</p>;
       });
     return text;
   }
@@ -40,7 +50,7 @@ export default function ShiftsTable({ rows }) {
           <TableBody>
             {rows.map((row) => (
               <TableRow
-                key={row.id}
+                key={getRandomKey()}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">

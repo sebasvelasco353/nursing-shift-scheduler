@@ -7,23 +7,24 @@ const rows = [
         "name": "MedSurg1",
         "startTime": "2022-11-26T00:00:00Z",
         "endTime": "2022-11-27T00:00:00Z",
-        "nurseId": null,
-        "qualificationLevel": "LPN"
+        "nursesId": [
+            76543,
+            52974
+        ],
+        "qualificationLevel": "LPN",
+        "nurses": [
+            "{firstName: \"Barbara\", id: 76543, lastName: \"Andrad…}",
+            "{firstName: \"Claudia\", id: 52974, lastName: \"Melend…}"
+        ]
     },
     {
-        "id": 1,
-        "name": "MedSurg2",
-        "startTime": "2022-11-27T00:00:00Z",
-        "endTime": "2022-11-28T00:00:00Z",
-        "nurseId": 345768,
-        "qualificationLevel": "CNA",
-        "nurse": {
-            "id": 345768,
-            "firstName": "Bradley",
-            "lastName": "Fletcher",
-            "username": "a.a",
-            "qualificationLevel": "RN"
-        }
+        "id": 0,
+        "name": "MedSurg1",
+        "startTime": "2022-11-26T00:00:00Z",
+        "endTime": "2022-11-27T00:00:00Z",
+        "nursesId": [],
+        "qualificationLevel": "LPN",
+        "nurses": []
     }
 ]
 
