@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -89,6 +89,7 @@ function ShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShiftAss
       aria-describedby="modal used to set nurse's shifts"
     >
       <Box
+        id="modalBody"
         sx={modalStyle}
         data-testid="shiftModalComponent_body"
       >

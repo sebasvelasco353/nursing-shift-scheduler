@@ -4,6 +4,12 @@
 #setShiftModal label {
     margin: 1rem 0 0.5rem 0;
 }
+#setShiftModal #modalBody {
+    max-width: 60vw;
+}
+.MuiMenuItem-root{
+    flex-wrap: wrap;
+}
 #saveAssignmentBtn {
     margin-top: 1rem;
 }

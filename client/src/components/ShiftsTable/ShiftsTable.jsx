@@ -8,8 +8,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
 export default function ShiftsTable({ rows }) {
+  const dateFormatOptions = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit' };
+
   return (
-    <TableContainer sx={{ minWidth: 650, minHeight: 150, backgroundColor: 'white'}}>
+    <TableContainer id="tableContainer" sx={{ minWidth: 650, minHeight: 150, backgroundColor: 'white'}}>
       {rows === null ?
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <CircularProgress data-testid="loading"/>
@@ -37,8 +39,8 @@ export default function ShiftsTable({ rows }) {
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell align="left">{new Date(row.startTime).toUTCString()}</TableCell>
-                <TableCell align="left">{new Date(row.endTime).toUTCString()}</TableCell>
+                <TableCell align="left">{new Date(row.startTime).toLocaleDateString("en-US", dateFormatOptions)}</TableCell>
+                <TableCell align="left">{new Date(row.endTime).toLocaleDateString("en-US", dateFormatOptions)}</TableCell>
                 <TableCell align="left">{row.qualificationLevel}</TableCell>
                 <TableCell align="left">{row.nurseId ? `${row.nurse.firstName} ${row.nurse.lastName}, ${row.nurse.qualificationLevel}` : ''}</TableCell>
               </TableRow>

@@ -15,5 +15,6 @@ header {
 }
 .tableContainer {
   border: 1px solid gray;
+  overflow: auto;
 }
 
