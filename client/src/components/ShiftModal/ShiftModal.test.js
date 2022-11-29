@@ -24,3 +24,10 @@ it('should have a button with the text "Save Assignment"', () => {
     const button = screen.getByText("Save Assignment");
     expect(button).toBeTruthy();
 });
+
+it('The button should be disabled when the modal opens', () => {
+    render(<ShiftModal open={true} />);
+    const button = screen.getByText("Save Assignment");
+
+    expect(button).toBeDisabled();
+});
