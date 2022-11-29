@@ -84,10 +84,14 @@ function ShiftModal ({ open, shifts, nurses, handleCloseModal, handleSetShiftAss
       id="setShiftModal"
       open={open}
       onClose={handleCloseModal}
+      data-testid="shiftModalComponent"
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={modalStyle}>
+      <Box
+        sx={modalStyle}
+        data-testid="shiftModalComponent_body"
+      >
         <h1>Set Shift Assignment</h1>
 
         <FormControl fullWidth>
