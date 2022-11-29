@@ -34,7 +34,7 @@ function App() {
         for (let i = 0; i < shiftsResponse.length; i++) {
           const shift = shiftsResponse[i];
           shift.nurses = [];
-          if (shift.nursesId !== null) {
+          if ((shift.nursesId !== null) && (shift.nursesId.length > 0)) {
             for (let i = 0; i < shift.nursesId.length; i++) {
               const nurseId = shift.nursesId[i];
               const foundNurse = nursesResponse.find((nurse) => {

@@ -21,7 +21,7 @@ app.put('/shifts/:shift_id', (req, res) => {
   const index = shift_list.findIndex(shift => {
     return parseInt(shift.id) === parseInt(req.params.shift_id);
   });
-  shift_list[index].nurseId = req.body.nurse_id;
+  shift_list[index].nursesId.push(req.body.nurse_id);
 
   fs.writeFile('./shift_list.json', JSON.stringify(shift_list), function (err) {
     if (err) throw err;
