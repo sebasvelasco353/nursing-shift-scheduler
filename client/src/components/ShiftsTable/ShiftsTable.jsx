@@ -10,6 +10,13 @@ import TableRow from '@mui/material/TableRow';
 export default function ShiftsTable({ rows }) {
   const dateFormatOptions = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit' };
 
+  const renderNursesInfo = (nurses) => {
+    let text = nurses.map(nurse => {
+        return <p key={nurse.id}>{nurse.firstName} {nurse.lastName}, {nurse.qualificationLevel}</p>;
+      });
+    return text;
+  }
+
   return (
     <TableContainer id="tableContainer" sx={{ minWidth: 650, minHeight: 150, backgroundColor: 'white'}}>
       {rows === null ?
@@ -42,7 +49,7 @@ export default function ShiftsTable({ rows }) {
                 <TableCell align="left">{new Date(row.startTime).toLocaleDateString("en-US", dateFormatOptions)}</TableCell>
                 <TableCell align="left">{new Date(row.endTime).toLocaleDateString("en-US", dateFormatOptions)}</TableCell>
                 <TableCell align="left">{row.qualificationLevel}</TableCell>
-                <TableCell align="left">{row.nurseId ? `${row.nurse.firstName} ${row.nurse.lastName}, ${row.nurse.qualificationLevel}` : ''}</TableCell>
+                <TableCell align="left">{row.nurses.length > 0 ? renderNursesInfo(row.nurses) : ''}</TableCell>
               </TableRow>
             ))}
           </TableBody>

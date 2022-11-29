@@ -32,11 +32,18 @@ function App() {
 
         let rows = []
         for (let i = 0; i < shiftsResponse.length; i++) {
-          const element = shiftsResponse[i];
-          element.nurse = nursesResponse.find((nurse) => {
-            return nurse.id === element.nurseId
-          })
-          rows.push(element);
+          const shift = shiftsResponse[i];
+          shift.nurses = [];
+          if (shift.nursesId !== null) {
+            for (let i = 0; i < shift.nursesId.length; i++) {
+              const nurseId = shift.nursesId[i];
+              const foundNurse = nursesResponse.find((nurse) => {
+                return nurse.id === nurseId;
+              });
+              shift.nurses.push(foundNurse);
+            }
+          }
+          rows.push(shift);
           setShifts(rows);
         }
       });
